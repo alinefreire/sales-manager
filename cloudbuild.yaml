@@ -4,6 +4,3 @@ steps:
 
   - name: 'docker'
     args: ['run','app','composer', 'install']
-
-  - name: 'docker'
-    args: ['run','app','php', 'artisan','migrate']
