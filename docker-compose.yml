@@ -19,7 +19,7 @@ services:
         volumes:
             - localDataApp:/data/db
         ports:
-            - "27065:27017"
+            - "27017:27017"
 
     sonarqube:
         container_name: sonarqube
@@ -35,6 +35,8 @@ services:
             - ./src:/app
         ports: 
             - 8000:8000
+        env_file:
+            - ./src/.env
 
 volumes:
     localDataApp:
