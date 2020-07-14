@@ -1,6 +1,6 @@
 {
-    "name": "linefreire/basic-template",
-    "description": "Template",
+    "name": "linefreire/sales-manager",
+    "description": "Sales Management API",
     "keywords": ["template", "laravel", "lumen"],
     "license": "MIT",
     "type": "project",

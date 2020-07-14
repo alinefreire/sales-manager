@@ -51,6 +51,13 @@ RUN set -x && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     composer clear-cache
 
+# Install dependencies
+RUN if [ "$APP_STAGE" == "local" ] ; then \
+    pecl install xdebug ;\
+    else \
+    composer install --no-cache --optimize-autoloader ; \
+fi
+
 # Display versions installed
 RUN php -v
 RUN composer --version
