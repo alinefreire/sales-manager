@@ -19,10 +19,12 @@ use Faker\Generator as Faker;
 $factory->define(Address::class, function (Faker $faker) {
 
     return [
-        'city' => $faker->city,
-        'state' => $faker->state,
-        'street'=> $faker->streetName,
-        'number'=> $faker->randomNumber(3),
-        'postal_code'=> $faker->postcode
+        'city'          => $faker->city,
+        'state'         => $faker->state,
+        'street'        => $faker->streetName,
+        'number'        => $faker->randomNumber(3),
+        'postal_code'   => $faker->postcode,
+        'neighborhood'  => $faker->firstNameMale,
+        'complement'    => $faker->randomLetter
     ];
 });

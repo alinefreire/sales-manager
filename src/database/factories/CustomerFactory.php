@@ -17,11 +17,14 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(Customer::class, function (Faker $faker) {
-    $address = factory(\App\Models\Address::class,1)->create();
+    $address = factory(\App\Models\Address::class)->make();
 
     return [
+        'code' => rand(),
         'name' => $faker->name,
+        'email' => $faker->email,
         'phone_number' => $faker->phoneNumber,
+        'observation' => $faker->text,
         'address'   => $address->toArray()
     ];
 });
