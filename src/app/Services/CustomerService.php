@@ -48,11 +48,16 @@ class CustomerService extends CrudService implements CustomerServiceContract
      *
      * @return mixed
      */
-    public function paginateByCriteria(string $criteria)
+    public function paginateByCriteria($criteria = false)
     {
-        return $this->repository
-            ->findByName($criteria)
-            ->orderBy('name')
+        $this->repository->resetCriteria();
+
+        if ($criteria){
+            return $this->repository->findByName($criteria)->orderBy('name')
+                ->paginate(null);
+        }
+
+        return $this->repository->orderBy('name')
             ->paginate(null);
     }
 
