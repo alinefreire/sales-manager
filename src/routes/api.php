@@ -12,5 +12,18 @@
 */
 
 $router->get('/', function () use ($router) {
+    return redirect('/health');
+});
+
+
+$router->get('/health', function () use ($router) {
     return $router->app->version();
+});
+
+$router->group(["prefix" => "v1"], function () use ($router) {
+
+    $router->get('/customers',                  'CustomerController@index');
+    $router->get('/customers/{$code}',          'CustomerController@get');
+    $router->post('/customers',                 'CustomerController@store');
+
 });
