@@ -15,9 +15,12 @@ class CreateCustomersTable extends Migration
     {
         Schema::connection('mongodb')->create('customers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('code')->autoIncrement();
+            $table->string('name');
             $table->string('phone_number');
-            $table->json('address');
+            $table->string('email');
             $table->string('observation');
+            $table->json('address');
             $table->timestamps();
         });
     }
