@@ -26,7 +26,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryCon
 
     public function findByName(string $name)
     {
-        return Customer::where('name','like','%'.$name.'%')->get();
+        return Customer::where('name','like','%'.$name.'%');
     }
 
     /**
