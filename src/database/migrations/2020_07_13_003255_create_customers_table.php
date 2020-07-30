@@ -15,7 +15,6 @@ class CreateCustomersTable extends Migration
     {
         Schema::connection('mongodb')->create('customers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('code')->autoIncrement();
             $table->string('name');
             $table->string('phone_number');
             $table->string('email');

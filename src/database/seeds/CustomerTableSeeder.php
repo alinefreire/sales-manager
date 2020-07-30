@@ -11,6 +11,6 @@ class CustomerTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Customer::class)->create();
+        factory(\App\Models\Customer::class,20)->create();
     }
 }

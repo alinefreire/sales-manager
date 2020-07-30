@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Services\CreateCustomerService;
 use App\Services\CustomerService;
+use App\Services\UpdateCustomerService;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 /**
@@ -17,21 +19,26 @@ class CustomerController extends Controller
     /**
      * CustomerService instance.
      *
+     * @param  Request  $request
+     * @param  CustomerService  $service
      * @return void
      */
     public function index(Request $request, CustomerService $service)
     {
-        return $service->paginateByCriteria($request->get('name'));
+        $response = $service->paginateByCriteria($request->get('name'));
+        return response()->json($response);
     }
 
     /**
-     * @param  string  $name
+     * @param  string  $id
      * @param  CustomerService  $service
      * @return mixed
      */
-    public function get(string $name, CustomerService $service)
+    public function show(string $id, CustomerService $service)
     {
-        return $service->findByName($name);
+        $response = $service->findById($id);
+
+        return response()->json($response);
     }
 
     /**
@@ -43,7 +50,33 @@ class CustomerController extends Controller
     public function store(Request $request, CreateCustomerService $service)
     {
         $this->validate($request, StoreCustomerRequest::rules(), StoreCustomerRequest::messages());
-        return $service->create($request->all());
+        $response = $service->create($request->all());
+        return response()->json($response, Response::HTTP_NO_CONTENT);
     }
 
+    /**
+     * @param  string  $id
+     * @param  Request  $request
+     * @param  UpdateCustomerService  $service
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function update(string $id, Request $request, UpdateCustomerService $service)
+    {
+        $this->validate($request, StoreCustomerRequest::rules(), StoreCustomerRequest::messages());
+        $response = $service->update($id, $request->all());
+        return response()->json($response, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @param  string  $id
+     * @param  CustomerService  $service
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function remove(string $id, CustomerService $service)
+    {
+        $service->deleteById($id);
+        return response()->json(null, Response::HTTP_NO_CONTENT);
+    }
 }

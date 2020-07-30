@@ -23,7 +23,7 @@ interface CustomerService
      * @param  bool $skipPresenter
      * @return mixed
      */
-    public function find($id, $skipPresenter = true);
+    public function find(int $id, bool $skipPresenter = false);
 
 
     /**
@@ -42,6 +42,6 @@ interface CustomerService
      * @param  int $id
      * @return mixed
      */
-    public function findById($id);
+    public function findById(string $id);
 
 }
