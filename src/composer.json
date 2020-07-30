@@ -5,12 +5,13 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "hirak/prestissimo": "^0.3",
         "php": "^7.4",
-        "laravel/lumen-framework": "^7.0",
+        "hirak/prestissimo": "^0.3",
         "jenssegers/mongodb": "dev-develop",
+        "laravel/lumen-framework": "^7.0",
+        "league/fractal": "^0.17.0",
         "prettus/l5-repository": "^2.6",
-        "league/fractal": "^0.17.0"
+        "symfony/twig-pack": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.9.1",

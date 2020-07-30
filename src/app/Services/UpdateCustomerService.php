@@ -2,15 +2,15 @@
 
 namespace App\Services;
 
-use App\Contracts\CreateCustomerService as CreateCustomerServiceContract;
+use App\Contracts\UpdateCustomerService as UpdateCustomerServiceContract;
 use App\Repositories\CustomerRepository;
 use Illuminate\Support\Fluent;
 
 /**
- * Class CreateCustomerService
+ * Class UpdateCustomerService
  * @package App\Services
  */
-class CreateCustomerService implements CreateCustomerServiceContract
+class UpdateCustomerService implements UpdateCustomerServiceContract
 {
     /**
      * @var CustomerRepository
@@ -18,7 +18,7 @@ class CreateCustomerService implements CreateCustomerServiceContract
     private CustomerRepository $repository;
 
     /**
-     * CreateCustomerService constructor.
+     * UpdateCustomerService constructor.
      * @param  CustomerRepository  $repository
      */
     public function __construct(CustomerRepository $repository)
@@ -27,16 +27,19 @@ class CreateCustomerService implements CreateCustomerServiceContract
     }
 
     /**
+     * @param  string  $id
      * @param  array  $attributes
      * @return mixed
      */
-    public function create(array $attributes)
+    public function update(string $id, array $attributes)
     {
         $payload  = new Fluent($attributes);
 
-        $customer = $this->repository->skipPresenter()->create($payload->toArray());
+        $customer = $this->repository->findOrFail($id);
 
-        $customer->addresses()->associate($payload->get('address'))->save();
+        $customer->update($payload->toArray());
+
+        $customer->addresses()->associate($payload->get('address'))->update();
 
         return $customer;
     }

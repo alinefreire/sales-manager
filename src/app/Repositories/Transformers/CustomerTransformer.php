@@ -30,7 +30,7 @@ class CustomerTransformer extends TransformerAbstract
     public function transform(Customer $model)
     {
         return [
-            'code'        => (int) $model->code,
+            'id'          => $model->id,
             'nome'        => $model->name,
             'email'       => $model->email,
             'phone_number'=> $model->phone_number,

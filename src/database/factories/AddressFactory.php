@@ -25,6 +25,6 @@ $factory->define(Address::class, function (Faker $faker) {
         'number'        => $faker->randomNumber(3),
         'postal_code'   => $faker->postcode,
         'neighborhood'  => $faker->firstNameMale,
-        'complement'    => $faker->randomLetter
+        'complement'    => $faker->text
     ];
 });

@@ -66,9 +66,9 @@ abstract class CrudService
      * @param  int $id
      * @return mixed
      */
-    public function findById($id)
+    public function findById(string $id)
     {
-        return $this->repository->skipPresenter()->findByField('id', $id)->first();
+        return $this->repository->skipPresenter()->findByField('_id', $id)->first();
     }
 
     /**

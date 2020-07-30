@@ -2,21 +2,37 @@
 
 namespace App\Services;
 
+use App\Exceptions\CustomerNotFoundException;
 use App\Repositories\CustomerRepository as CustomerRepositoryContract;
 use App\Support\CrudService;
 use App\Contracts\CustomerService as CustomerServiceContract;
 
+/**
+ * Class CustomerService
+ * @package App\Services
+ */
 class CustomerService extends CrudService implements CustomerServiceContract
 {
 
+    /**
+     * @var CustomerRepositoryContract
+     */
     protected CustomerRepositoryContract $repository;
 
+    /**
+     * CustomerService constructor.
+     * @param  CustomerRepositoryContract  $repository
+     */
     public function __construct(CustomerRepositoryContract $repository)
     {
         $this->repository = $repository;
     }
 
 
+    /**
+     * @return \App\Models\Customer[]|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection|mixed
+     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     */
     public function getAll()
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
@@ -62,14 +78,27 @@ class CustomerService extends CrudService implements CustomerServiceContract
     }
 
     /**
-     * Find by name
-     *
-     * @param  String  $name
+     * @param  string  $id
      * @return mixed
+     * @throws \Throwable
      */
-    public function findByName(String $name)
+    public function findById(string $id)
     {
-        return $this->repository->findByName($name);
+        $customer = parent::findById($id);
+        throw_if(!$customer, new CustomerNotFoundException());
+        return $customer;
+    }
+
+    /**
+     * @param string $id
+     * @return bool
+     * @throws \Throwable
+     */
+    public function deleteById(string $id):bool
+    {
+        $customer = $this->findById($id,true);
+
+        return $customer->delete();
     }
 
     /**
