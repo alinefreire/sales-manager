@@ -51,7 +51,7 @@ class CustomerController extends Controller
     {
         $this->validate($request, StoreCustomerRequest::rules(), StoreCustomerRequest::messages());
         $response = $service->create($request->all());
-        return response()->json($response, Response::HTTP_NO_CONTENT);
+        return response()->json(["inserted_id" => $response->id], Response::HTTP_CREATED);
     }
 
     /**
