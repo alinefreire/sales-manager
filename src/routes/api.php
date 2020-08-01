@@ -27,4 +27,10 @@ $router->group(["prefix" => "v1"], function () use ($router) {
     $router->post('/customers',               'CustomerController@store');
     $router->put('/customers/{id}',           'CustomerController@update');
     $router->delete('/customers/{id}',        'CustomerController@remove');
+
+    $router->get('/products',                'ProductController@index');
+    $router->get('/products/{id}',           'ProductController@show');
+    $router->post('/products',               'ProductController@store');
+    $router->put('/products/{id}',           'ProductController@update');
+    $router->delete('/products/{id}',        'ProductController@remove');
 });
