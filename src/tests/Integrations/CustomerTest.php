@@ -1,13 +1,17 @@
 <?php
 
 
-namespace Tests;
+namespace Tests\Integrations;
 
 use App\Models\Customer;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Symfony\Component\HttpFoundation\Response;
 use TestCase;
 
+/**
+ * Class CustomerTest
+ * @package Tests\Integrations
+ */
 class CustomerTest extends TestCase
 {
 

@@ -11,10 +11,13 @@ return [
                 'database' => 'admin'
             ]
         ],
-        'sqlite' => [
-            'driver' => 'sqlite',
+        'tests' => [
+            'driver' => 'mongodb',
+            'dsn' => env('DB_TEST_DSN'),
             'database' => env('DB_TEST_DATABASE'),
-            'prefix' => ''
+            'options' => [
+                'database' => 'admin'
+            ]
         ],
 
     ],
