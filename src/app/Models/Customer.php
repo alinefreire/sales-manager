@@ -27,8 +27,11 @@ class Customer extends Model implements Transformable
         'observation'
     ];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|\Jenssegers\Mongodb\Relations\BelongsTo
+     */
     public function addresses()
     {
-        return $this->belongsTo(Address::class,'address');
+        return $this->belongsTo(Address::class, 'address');
     }
 }
