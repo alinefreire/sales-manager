@@ -93,7 +93,7 @@ class ProductTest extends TestCase
     {
         $product = factory(Product::class)->create();
 
-        $this->put("/v1/products/{$product->_id}",["description" => "Update Teste"]);
+        $this->put("/v1/products/{$product->_id}", ["description" => "Update Teste"]);
 
         $this->seeInDatabase('products', ['description' => "Update Teste"]);
         $this->assertResponseStatus(Response::HTTP_NO_CONTENT);

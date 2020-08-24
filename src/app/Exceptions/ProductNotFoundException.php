@@ -7,7 +7,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class ProductNotFoundException extends NotFoundHttpException
 {
 
-    public function __construct($message = "Produto não encontrado!") {
+    public function __construct($message = "Produto não encontrado!")
+    {
         parent::__construct($message);
     }
 }

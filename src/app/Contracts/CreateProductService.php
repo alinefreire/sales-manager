@@ -4,7 +4,17 @@
 namespace App\Contracts;
 
 
+use App\Models\Product;
+
+/**
+ * Interface CreateProductService
+ * @package App\Contracts
+ */
 interface CreateProductService
 {
-    public function create(array $attributes);
+    /**
+     * @param  array  $attributes
+     * @return Product
+     */
+    public function create(array $attributes): Product;
 }

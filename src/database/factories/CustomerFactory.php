@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Customer;
+use App\Models\Address;
 use Faker\Generator as Faker;
 
 /*
@@ -17,7 +18,7 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(Customer::class, function (Faker $faker) {
-    $address = factory(\App\Models\Address::class)->make();
+    $address = factory(Address::class)->make();
 
     return [
         'name' => $faker->name,

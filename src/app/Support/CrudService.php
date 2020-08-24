@@ -25,9 +25,9 @@ abstract class CrudService
     /**
      * Get paginate
      *
-     * @param  null $limit
-     * @param  array $columns
-     * @param  string $method
+     * @param  null  $limit
+     * @param  array  $columns
+     * @param  string  $method
      * @return mixed
      */
     public function paginate($limit = null, array $columns = ['*'], $method = 'paginate')
@@ -38,8 +38,8 @@ abstract class CrudService
     /**
      * Find by id
      *
-     * @param  int $id
-     * @param  bool $skipPresenter
+     * @param  int  $id
+     * @param  bool  $skipPresenter
      * @return mixed
      * @throws ModelNotFoundException
      */
@@ -63,7 +63,7 @@ abstract class CrudService
     /**
      * Find by id
      *
-     * @param  int $id
+     * @param  int  $id
      * @return mixed
      */
     public function findById(string $id)
@@ -74,7 +74,7 @@ abstract class CrudService
     /**
      * Delete model
      *
-     * @param  int $id
+     * @param  int  $id
      * @return mixed
      */
     public function delete(int $id)

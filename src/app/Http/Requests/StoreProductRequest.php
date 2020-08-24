@@ -3,12 +3,14 @@
 namespace App\Http\Requests;
 
 
+use Pearl\RequestValidate\RequestAbstract;
+
 /**
  * Class StoreProductRequest
  *
  * @package App\Http\Requests
  */
-class StoreProductRequest
+class StoreProductRequest extends RequestAbstract
 {
 
     /**
@@ -16,7 +18,7 @@ class StoreProductRequest
      *
      * @return array
      */
-    public static function rules()
+    public function rules(): array
     {
         return [
             'description' => 'required'
@@ -28,10 +30,10 @@ class StoreProductRequest
      *
      * @return array
      */
-    public static function messages()
+    public function messages(): array
     {
         return [
-            'description.required'  => 'A descrição do produto é obrigatória.'
+            'description.required' => 'A descrição do produto é obrigatória.'
         ];
     }
 }

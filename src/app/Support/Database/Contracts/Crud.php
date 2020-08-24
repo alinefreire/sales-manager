@@ -14,9 +14,9 @@ interface Crud
     /**
      * Get paginate
      *
-     * @param int $limit
+     * @param  int  $limit
      * @param $columns
-     * @param string $method
+     * @param  string  $method
      *
      * @return mixed
      */
@@ -25,7 +25,7 @@ interface Crud
     /**
      * Get by id
      *
-     * @param  int $id
+     * @param  int  $id
      *
      * @return mixed
      */
@@ -34,7 +34,7 @@ interface Crud
     /**
      * Create a new resource
      *
-     * @param array $attributes
+     * @param  array  $attributes
      *
      * @return mixed
      */
@@ -43,8 +43,8 @@ interface Crud
     /**
      * Update resource
      *
-     * @param array $attributes
-     * @param int $id
+     * @param  array  $attributes
+     * @param  int  $id
      *
      * @return mixed
      */
@@ -53,7 +53,7 @@ interface Crud
     /**
      * Delete resource
      *
-     * @param int $id
+     * @param  int  $id
      *
      * @return mixed
      */

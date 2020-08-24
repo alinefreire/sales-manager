@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Presenters\CustomerPresenter;
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
 use App\Contracts\CustomerRepository as CustomerRepositoryContract;
 use App\Models\Customer;
+use App\Repositories\Presenters\CustomerPresenter;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class CustomerRepositoryEloquent.
@@ -24,9 +24,9 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryCon
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function findByName(string $name)
+    public function findByName(string $name): Customer
     {
-        return Customer::where('name','like','%'.$name.'%');
+        return Customer::where('name', 'like', '%'.$name.'%');
     }
 
     /**

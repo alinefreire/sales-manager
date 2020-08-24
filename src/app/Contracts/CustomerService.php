@@ -2,6 +2,9 @@
 
 namespace App\Contracts;
 
+use App\Models\Customer;
+use Throwable;
+
 /**
  * Interface CustomerService
  *
@@ -10,38 +13,26 @@ namespace App\Contracts;
 interface CustomerService
 {
     /**
-     * Get all
-     *
-     * @return \App\Models\Customer[]
-     */
-    public function getAll();
-
-    /**
-     * Find record
-     *
-     * @param  string|int $id
-     * @param  bool $skipPresenter
-     * @return mixed
-     */
-    public function find(int $id, bool $skipPresenter = false);
-
-
-    /**
      * Paginate
      *
-     * @param  int|null $limit
-     * @param  array $columns
-     * @param  string $method
+     * @param  int|null  $limit
+     * @param  array  $columns
+     * @param  string  $method
      * @return mixed
      */
-    public function paginate($limit = null, array $columns = ['*'], $method = 'paginate');
+    public function paginate($limit = null, array $columns = ['*'], $method = 'paginate'): array;
 
     /**
-     * Find by id
-     *
-     * @param  int $id
-     * @return mixed
+     * @param  string  $id
+     * @return Customer
      */
-    public function findById(string $id);
+    public function findById(string $id): Customer;
+
+    /**
+     * @param  string  $id
+     * @return bool
+     * @throws Throwable
+     */
+    public function deleteById(string $id): bool;
 
 }

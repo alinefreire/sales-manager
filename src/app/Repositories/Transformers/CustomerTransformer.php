@@ -24,24 +24,24 @@ class CustomerTransformer extends TransformerAbstract
     /**
      * Transform the Customer entity
      *
-     * @param  Customer $model
+     * @param  Customer  $model
      * @return array
      */
     public function transform(Customer $model)
     {
         return [
-            'id'          => $model->id,
-            'nome'        => $model->name,
-            'email'       => $model->email,
-            'phone_number'=> $model->phone_number,
-            'address'     => $model->address
+            'id' => $model->id,
+            'nome' => $model->name,
+            'email' => $model->email,
+            'phone_number' => $model->phone_number,
+            'address' => $model->address
         ];
     }
 
     /**
      * Include Address
      *
-     * @param  Customer $model
+     * @param  Customer  $model
      * @return \League\Fractal\Resource\Item|null
      */
     public function includeAddress(Customer $model)

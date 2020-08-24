@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Contracts\CreateCustomerService as CreateCustomerServiceContract;
-use App\Repositories\CustomerRepository;
+use App\Contracts\CustomerRepository;
+use App\Models\Customer;
 use Illuminate\Support\Fluent;
+
 
 /**
  * Class CreateCustomerService
@@ -28,11 +30,11 @@ class CreateCustomerService implements CreateCustomerServiceContract
 
     /**
      * @param  array  $attributes
-     * @return mixed
+     * @return Customer
      */
-    public function create(array $attributes)
+    public function create(array $attributes): Customer
     {
-        $payload  = new Fluent($attributes);
+        $payload = new Fluent($attributes);
 
         $customer = $this->repository->skipPresenter()->create($payload->toArray());
 

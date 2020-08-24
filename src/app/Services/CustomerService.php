@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
-use App\Exceptions\CustomerNotFoundException;
-use App\Repositories\CustomerRepository as CustomerRepositoryContract;
-use App\Support\CrudService;
+use App\Contracts\CustomerRepository;
 use App\Contracts\CustomerService as CustomerServiceContract;
+use App\Exceptions\CustomerNotFoundException;
+use App\Models\Customer;
+use App\Support\CrudService;
+use Throwable;
 
 /**
  * Class CustomerService
@@ -15,40 +17,29 @@ class CustomerService extends CrudService implements CustomerServiceContract
 {
 
     /**
-     * @var CustomerRepositoryContract
+     * @var CustomerRepository
      */
-    protected CustomerRepositoryContract $repository;
+    protected CustomerRepository $repository;
 
     /**
      * CustomerService constructor.
-     * @param  CustomerRepositoryContract  $repository
+     * @param  CustomerRepository  $repository
      */
-    public function __construct(CustomerRepositoryContract $repository)
+    public function __construct(CustomerRepository $repository)
     {
         $this->repository = $repository;
-    }
-
-
-    /**
-     * @return \App\Models\Customer[]|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection|mixed
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
-     */
-    public function getAll()
-    {
-        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        return $this->repository->all();
     }
 
     /**
      * Paginate by link status criteria.
      *
-     * @param int|null $limit
-     * @param array $columns
-     * @param string $method
+     * @param  int|null  $limit
+     * @param  array  $columns
+     * @param  string  $method
      *
      * @return mixed
      */
-    public function paginate($limit = null, array $columns = ['*'], $method = 'paginate')
+    public function paginate($limit = null, array $columns = ['*'], $method = 'paginate'): array
     {
         return $this->repository
             ->orderBy('name')
@@ -58,17 +49,14 @@ class CustomerService extends CrudService implements CustomerServiceContract
     /**
      * Paginate by link status criteria.
      *
-     * @param int|null $limit
-     * @param array $columns
-     * @param string $method
-     *
-     * @return mixed
+     * @param  bool  $criteria
+     * @return array
      */
-    public function paginateByCriteria($criteria = false)
+    public function paginateByCriteria($criteria = false): array
     {
         $this->repository->resetCriteria();
 
-        if ($criteria){
+        if ($criteria) {
             return $this->repository->findByName($criteria)->orderBy('name')
                 ->paginate(null);
         }
@@ -79,26 +67,22 @@ class CustomerService extends CrudService implements CustomerServiceContract
 
     /**
      * @param  string  $id
-     * @return mixed
-     * @throws \Throwable
+     * @return bool
+     * @throws Throwable
      */
-    public function findById(string $id)
+    public function deleteById(string $id): bool
     {
-        $customer = parent::findById($id);
-        throw_if(!$customer, new CustomerNotFoundException());
-        return $customer;
+        return $this->findById($id)->delete();
     }
 
     /**
-     * @param string $id
-     * @return bool
-     * @throws \Throwable
+     * @param  string  $id
+     * @return Customer
+     * @throws Throwable
      */
-    public function deleteById(string $id):bool
+    public function findById(string $id): Customer
     {
-        $customer = $this->findById($id,true);
-
-        return $customer->delete();
+        return throw_unless(parent::findById($id), new CustomerNotFoundException());
     }
 
     /**

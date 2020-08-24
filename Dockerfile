@@ -51,11 +51,17 @@ RUN set -x && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
     composer clear-cache
 
+#####
+# PRESTISSIMO
+#####
+RUN composer global require hirak/prestissimo
+
 # Install dependencies
 RUN if [ "$APP_STAGE" == "local" ] ; then \
-    pecl install xdebug ;\
-    else \
-    composer install --no-cache --optimize-autoloader ; \
+    apk add --no-cache $PHPIZE_DEPS \
+    && pecl install xdebug \
+    && apk --update add bash \
+    && docker-php-ext-enable xdebug ; \
 fi
 
 # Display versions installed
