@@ -20,63 +20,57 @@ class ProductController extends Controller
      * ProductService instance.
      *
      * @param  Request  $request
-     * @param  ProductService  $service
-     * @return void
+     * @param  ProductService  $productService
+     * @return JsonResponse
      */
-    public function index(Request $request, ProductService $service)
+    public function index(Request $request, ProductService $productService)
     {
-        $response = $service->paginateByCriteria($request->get('description'));
+        $response = $productService->paginateByCriteria($request->get('description'));
         return response()->json($response);
     }
 
     /**
      * @param  string  $id
-     * @param  ProductService  $service
-     * @return mixed
+     * @param  ProductService  $productService
+     * @return JsonResponse
      */
-    public function show(string $id, ProductService $service)
+    public function show(string $id, ProductService $productService)
     {
-        $response = $service->findById($id);
-
+        $response = $productService->findById($id);
         return response()->json($response);
     }
 
     /**
      * @param  Request  $request
-     * @param  CreateProductService  $service
-     * @return mixed
-     * @throws \Illuminate\Validation\ValidationException
+     * @param  CreateProductService  $createProductService
+     * @return JsonResponse
      */
-    public function store(Request $request, CreateProductService $service)
+    public function store(Request $request, CreateProductService $createProductService)
     {
-        $this->validate($request, StoreProductRequest::rules(), StoreProductRequest::messages());
-        $response = $service->create($request->all());
+        $response = $createProductService->create($request->all());
         return response()->json(["inserted_id" => $response->id], Response::HTTP_CREATED);
     }
 
     /**
      * @param  string  $id
-     * @param  Request  $request
-     * @param  UpdateProductService  $service
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @param  StoreProductRequest  $request
+     * @param  UpdateProductService  $updateProductService
+     * @return JsonResponse
      */
-    public function update(string $id, Request $request, UpdateProductService $service)
+    public function update(string $id, StoreProductRequest $request, UpdateProductService $updateProductService)
     {
-        $this->validate($request, StoreProductRequest::rules(), StoreProductRequest::messages());
-        $response = $service->update($id, $request->all());
+        $response = $updateProductService->update($id, $request->all());
         return response()->json($response, Response::HTTP_NO_CONTENT);
     }
 
     /**
      * @param  string  $id
-     * @param  ProductService  $service
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
+     * @param  ProductService  $productService
+     * @return JsonResponse
      */
-    public function remove(string $id, ProductService $service)
+    public function remove(string $id, ProductService $productService)
     {
-        $service->deleteById($id);
+        $productService->deleteById($id);
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

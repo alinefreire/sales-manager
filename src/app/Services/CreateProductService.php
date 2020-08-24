@@ -3,7 +3,8 @@
 namespace App\Services;
 
 use App\Contracts\CreateProductService as CreateProductServiceContract;
-use App\Repositories\ProductRepository;
+use App\Contracts\ProductRepository;
+use App\Models\Product;
 use Illuminate\Support\Fluent;
 
 /**
@@ -28,11 +29,11 @@ class CreateProductService implements CreateProductServiceContract
 
     /**
      * @param  array  $attributes
-     * @return mixed
+     * @return Product
      */
-    public function create(array $attributes)
+    public function create(array $attributes): Product
     {
-        $payload  = new Fluent($attributes);
+        $payload = new Fluent($attributes);
         return $this->repository->skipPresenter()->create($payload->toArray());
     }
 }

@@ -29,14 +29,14 @@ class UpdateProductService implements UpdateProductServiceContract
     /**
      * @param  string  $id
      * @param  array  $attributes
-     * @return mixed
+     * @return bool
      */
-    public function update(string $id, array $attributes)
+    public function update(string $id, array $attributes): bool
     {
-        $payload  = new Fluent($attributes);
+        $payload = new Fluent($attributes);
 
-        $product = $this->repository->findOrFail($id);
+        $productService = app(ProductService::class);
 
-        return $product->update($payload->toArray());
+        return $productService->findById($id)->update($payload->toArray());
     }
 }

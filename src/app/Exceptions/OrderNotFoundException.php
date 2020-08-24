@@ -4,10 +4,10 @@ namespace App\Exceptions;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class ProductNotFoundException extends NotFoundHttpException
+class OrderNotFoundException extends NotFoundHttpException
 {
 
-    public function __construct($message = "Produto não encontrado!")
+    public function __construct($message = "Pedido não encontrado!")
     {
         parent::__construct($message);
     }

@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Presenters\ProductPresenter;
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
 use App\Contracts\ProductRepository as ProductRepositoryContract;
 use App\Models\Product;
+use App\Repositories\Presenters\ProductPresenter;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class ProductRepositoryEloquent.

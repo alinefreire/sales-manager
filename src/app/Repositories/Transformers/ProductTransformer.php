@@ -16,15 +16,15 @@ class ProductTransformer extends TransformerAbstract
     /**
      * Transform the Product entity
      *
-     * @param  Product $model
+     * @param  Product  $model
      * @return array
      */
     public function transform(Product $model)
     {
         return [
-            'id'          => $model->id,
+            'id' => $model->id,
             'description' => $model->description,
-            'price'       => $model->price
+            'price' => $model->price
         ];
     }
 }

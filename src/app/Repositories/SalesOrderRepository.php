@@ -2,31 +2,28 @@
 
 namespace App\Repositories;
 
-use App\Contracts\CustomerRepository as CustomerRepositoryContract;
-use App\Models\Customer;
-use App\Repositories\Presenters\CustomerPresenter;
+use App\Contracts\SalesOrderRepository as SalesOrderRepositoryContract;
+use App\Models\SalesOrder;
+use App\Repositories\Presenters\SalesOrderPresenter;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
- * Class CustomerRepositoryEloquent.
+ * Class SalesOrderRepository.
  *
  * @package namespace App\Repositories;
  */
-class CustomerRepository extends BaseRepository implements CustomerRepositoryContract
+class SalesOrderRepository extends BaseRepository implements SalesOrderRepositoryContract
 {
-    protected $fieldSearchable = [
-        'name' => 'like'
-    ];
 
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
 
-    public function findByName(string $name): Customer
+    public function findByName(string $name): SalesOrder
     {
-        return Customer::where('name', 'like', '%'.$name.'%');
+        return SalesOrder::where('name', 'like', '%'.$name.'%');
     }
 
     /**
@@ -36,7 +33,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryCon
      */
     public function model()
     {
-        return Customer::class;
+        return SalesOrder::class;
     }
 
     /**
@@ -46,7 +43,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryCon
      */
     public function presenter()
     {
-        return CustomerPresenter::class;
+        return SalesOrderPresenter::class;
     }
 
 }

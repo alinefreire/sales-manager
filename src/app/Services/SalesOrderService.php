@@ -2,30 +2,30 @@
 
 namespace App\Services;
 
-use App\Contracts\CustomerRepository;
-use App\Contracts\CustomerService as CustomerServiceContract;
-use App\Exceptions\CustomerNotFoundException;
-use App\Models\Customer;
+use App\Contracts\SalesOrderService as SalesOrderServiceContract;
+use App\Exceptions\OrderNotFoundException;
+use App\Models\SalesOrder;
+use App\Repositories\SalesOrderRepository;
 use App\Support\CrudService;
 use Throwable;
 
 /**
- * Class CustomerService
+ * Class SalesOrderService
  * @package App\Services
  */
-class CustomerService extends CrudService implements CustomerServiceContract
+class SalesOrderService extends CrudService implements SalesOrderServiceContract
 {
 
     /**
-     * @var CustomerRepository
+     * @var SalesOrderRepository
      */
-    protected CustomerRepository $repository;
+    protected SalesOrderRepository $repository;
 
     /**
-     * CustomerService constructor.
-     * @param  CustomerRepository  $repository
+     * SalesOrderService constructor.
+     * @param  SalesOrderRepository  $repository
      */
-    public function __construct(CustomerRepository $repository)
+    public function __construct(SalesOrderRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -77,12 +77,12 @@ class CustomerService extends CrudService implements CustomerServiceContract
 
     /**
      * @param  string  $id
-     * @return Customer
+     * @return SalesOrder
      * @throws Throwable
      */
-    public function findById(string $id): Customer
+    public function findById(string $id): SalesOrder
     {
-        return throw_unless(parent::findById($id), new CustomerNotFoundException());
+        return throw_unless(parent::findById($id), new OrderNotFoundException());
     }
 
     /**

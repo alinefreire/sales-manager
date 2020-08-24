@@ -2,15 +2,15 @@
 
 namespace App\Contracts;
 
-use App\Models\Customer;
+use App\Models\SalesOrder;
 use Throwable;
 
 /**
- * Interface CustomerService
+ * Interface SalesOrderService
  *
  * @package App\Contracts
  */
-interface CustomerService
+interface SalesOrderService
 {
     /**
      * Paginate
@@ -23,10 +23,17 @@ interface CustomerService
     public function paginate($limit = null, array $columns = ['*'], $method = 'paginate'): array;
 
     /**
-     * @param  string  $id
-     * @return Customer
+     * @param  false  $criteria
+     * @return array
      */
-    public function findById(string $id): Customer;
+    public function paginateByCriteria($criteria = false): array;
+
+
+    /**
+     * @param  string  $id
+     * @return SalesOrder
+     */
+    public function findById(string $id): SalesOrder;
 
     /**
      * @param  string  $id

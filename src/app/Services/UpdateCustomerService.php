@@ -2,8 +2,9 @@
 
 namespace App\Services;
 
+use App\Contracts\CustomerRepository;
 use App\Contracts\UpdateCustomerService as UpdateCustomerServiceContract;
-use App\Repositories\CustomerRepository;
+use App\Models\Customer;
 use Illuminate\Support\Fluent;
 
 /**
@@ -29,13 +30,15 @@ class UpdateCustomerService implements UpdateCustomerServiceContract
     /**
      * @param  string  $id
      * @param  array  $attributes
-     * @return mixed
+     * @return Customer
      */
-    public function update(string $id, array $attributes)
+    public function update(string $id, array $attributes): Customer
     {
-        $payload  = new Fluent($attributes);
+        $payload = new Fluent($attributes);
 
-        $customer = $this->repository->findOrFail($id);
+        $customerService = app(CustomerService::class);
+
+        $customer = $customerService->findById($id);
 
         $customer->update($payload->toArray());
 
@@ -43,4 +46,6 @@ class UpdateCustomerService implements UpdateCustomerServiceContract
 
         return $customer;
     }
+
+
 }

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\CreateCustomerService;
+use App\Contracts\CustomerService;
+use App\Contracts\UpdateCustomerService;
 use App\Http\Requests\StoreCustomerRequest;
-use App\Services\CreateCustomerService;
-use App\Services\CustomerService;
-use App\Services\UpdateCustomerService;
+use App\Http\Requests\UpdateCustomerRequest;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 
 /**
@@ -20,63 +23,58 @@ class CustomerController extends Controller
      * CustomerService instance.
      *
      * @param  Request  $request
-     * @param  CustomerService  $service
+     * @param  CustomerService  $customerService
      * @return void
      */
-    public function index(Request $request, CustomerService $service)
+    public function index(Request $request, CustomerService $customerService)
     {
-        $response = $service->paginateByCriteria($request->get('name'));
+        $response = $customerService->paginateByCriteria($request->get('name'));
         return response()->json($response);
     }
 
     /**
      * @param  string  $id
-     * @param  CustomerService  $service
+     * @param  CustomerService  $customerService
      * @return mixed
      */
-    public function show(string $id, CustomerService $service)
+    public function show(string $id, CustomerService $customerService)
     {
-        $response = $service->findById($id);
-
+        $response = $customerService->findById($id);
         return response()->json($response);
     }
 
     /**
-     * @param  Request  $request
-     * @param  CreateCustomerService  $service
+     * @param  StoreCustomerRequest  $request
+     * @param  CreateCustomerService  $createCustomerService
      * @return mixed
-     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, CreateCustomerService $service)
+    public function store(StoreCustomerRequest $request, CreateCustomerService $createCustomerService)
     {
-        $this->validate($request, StoreCustomerRequest::rules(), StoreCustomerRequest::messages());
-        $response = $service->create($request->all());
+        $response = $createCustomerService->create($request->all());
         return response()->json(["inserted_id" => $response->id], Response::HTTP_CREATED);
     }
 
     /**
      * @param  string  $id
-     * @param  Request  $request
-     * @param  UpdateCustomerService  $service
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @param  UpdateCustomerRequest  $request
+     * @param  UpdateCustomerService  $updateCustomerService
+     * @return JsonResponse
      */
-    public function update(string $id, Request $request, UpdateCustomerService $service)
+    public function update(string $id, UpdateCustomerRequest $request, UpdateCustomerService $updateCustomerService)
     {
-        $this->validate($request, StoreCustomerRequest::rules(), StoreCustomerRequest::messages());
-        $response = $service->update($id, $request->all());
+        $response = $updateCustomerService->update($id, $request->all());
         return response()->json($response, Response::HTTP_NO_CONTENT);
     }
 
     /**
      * @param  string  $id
-     * @param  CustomerService  $service
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
+     * @param  CustomerService  $customerService
+     * @return JsonResponse
+     * @throws Throwable
      */
-    public function remove(string $id, CustomerService $service)
+    public function remove(string $id, CustomerService $customerService)
     {
-        $service->deleteById($id);
+        $customerService->deleteById($id);
         return response()->json(null, Response::HTTP_NO_CONTENT);
     }
 }

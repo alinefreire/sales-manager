@@ -2,6 +2,8 @@
 
 namespace App\Contracts;
 
+use App\Models\Product;
+
 /**
  * Interface ProductService
  *
@@ -9,39 +11,43 @@ namespace App\Contracts;
  */
 interface ProductService
 {
-    /**
-     * Get all
-     *
-     * @return \App\Models\Product[]
-     */
-    public function getAll();
 
     /**
-     * Find record
-     *
-     * @param  string|int $id
-     * @param  bool $skipPresenter
-     * @return mixed
+     * @return array
      */
-    public function find(int $id, bool $skipPresenter = false);
-
+    public function getAll(): array;
 
     /**
      * Paginate
      *
-     * @param  int|null $limit
-     * @param  array $columns
-     * @param  string $method
-     * @return mixed
+     * @param  int|null  $limit
+     * @param  array  $columns
+     * @param  string  $method
+     * @return array
      */
-    public function paginate($limit = null, array $columns = ['*'], $method = 'paginate');
+    public function paginate($limit = null, array $columns = ['*'], $method = 'paginate'): array;
+
+    /**
+     * @param  false  $criteria
+     * @return array
+     */
+    public function paginateByCriteria($criteria = false): array;
+
 
     /**
      * Find by id
      *
-     * @param  int $id
+     * @param  string  $id
      * @return mixed
      */
-    public function findById(string $id);
+    public function findById(string $id): Product;
+
+
+    /**
+     * @param  string  $id
+     * @return bool
+     */
+    public function deleteById(string $id): bool;
+
 
 }

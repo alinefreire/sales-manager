@@ -6,11 +6,11 @@ namespace App\Http\Requests;
 use Pearl\RequestValidate\RequestAbstract;
 
 /**
- * Class StoreProductRequest
+ * Class UpdateSalesOrderRequest
  *
  * @package App\Http\Requests
  */
-class StoreProductRequest extends RequestAbstract
+class UpdateCustomerRequest extends RequestAbstract
 {
 
     /**
@@ -21,7 +21,8 @@ class StoreProductRequest extends RequestAbstract
     public function rules(): array
     {
         return [
-            'description' => 'required'
+            'id' => 'bail|exists:customers,id',
+            'name' => 'unique:customers,name',
         ];
     }
 
@@ -33,7 +34,8 @@ class StoreProductRequest extends RequestAbstract
     public function messages(): array
     {
         return [
-            'description.required' => 'A descrição do produto é obrigatória.'
+            'name.unique' => 'Já existe um Cliente com o nome informado',
+            'id.exists' => 'SalesOrder não encontrado'
         ];
     }
 }

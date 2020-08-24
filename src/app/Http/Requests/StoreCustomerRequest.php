@@ -3,12 +3,14 @@
 namespace App\Http\Requests;
 
 
+use Pearl\RequestValidate\RequestAbstract;
+
 /**
- * Class StoreCustomerRequest
+ * Class StoreSalesOrderRequest
  *
  * @package App\Http\Requests
  */
-class StoreCustomerRequest
+class StoreCustomerRequest extends RequestAbstract
 {
 
     /**
@@ -16,10 +18,10 @@ class StoreCustomerRequest
      *
      * @return array
      */
-    public static function rules()
+    public function rules(): array
     {
         return [
-            'name' => 'required'
+            'name' => 'required|unique:customers,name'
         ];
     }
 
@@ -28,10 +30,11 @@ class StoreCustomerRequest
      *
      * @return array
      */
-    public static function messages()
+    public function messages(): array
     {
         return [
-            'name.required'  => 'O Nome do Cliente é obrigatório.'
+            'name.required' => 'O Nome do Cliente é obrigatório.',
+            'name.unique' => 'Já existe um Cliente com o nome informado'
         ];
     }
 }

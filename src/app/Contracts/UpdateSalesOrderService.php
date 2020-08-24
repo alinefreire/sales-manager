@@ -4,18 +4,18 @@
 namespace App\Contracts;
 
 
-use App\Models\Customer;
+use App\Models\SalesOrder;
 
 /**
  * Interface UpdateCustomerService
  * @package App\Contracts
  */
-interface UpdateCustomerService
+interface UpdateSalesOrderService
 {
     /**
      * @param  string  $id
      * @param  array  $attributes
-     * @return Customer
+     * @return SalesOrder
      */
-    public function update(string $id, array $attributes): Customer;
+    public function update(string $id, array $attributes): SalesOrder;
 }

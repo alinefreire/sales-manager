@@ -2,10 +2,15 @@
 
 namespace App\Services;
 
+use App\Contracts\ProductService as ProductServiceContract;
 use App\Exceptions\ProductNotFoundException;
+use App\Models\Product;
 use App\Repositories\ProductRepository as ProductRepositoryContract;
 use App\Support\CrudService;
-use App\Contracts\ProductService as ProductServiceContract;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
+use Prettus\Repository\Exceptions\RepositoryException;
+use Throwable;
 
 /**
  * Class ProductService
@@ -30,10 +35,10 @@ class ProductService extends CrudService implements ProductServiceContract
 
 
     /**
-     * @return \App\Models\Product[]|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Support\Collection|mixed
-     * @throws \Prettus\Repository\Exceptions\RepositoryException
+     * @return Product[]|LengthAwarePaginator|Collection|mixed
+     * @throws RepositoryException
      */
-    public function getAll()
+    public function getAll(): array
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         return $this->repository->all();
@@ -42,13 +47,13 @@ class ProductService extends CrudService implements ProductServiceContract
     /**
      * Paginate by link status criteria.
      *
-     * @param int|null $limit
-     * @param array $columns
-     * @param string $method
+     * @param  int|null  $limit
+     * @param  array  $columns
+     * @param  string  $method
      *
      * @return mixed
      */
-    public function paginate($limit = null, array $columns = ['*'], $method = 'paginate')
+    public function paginate($limit = null, array $columns = ['*'], $method = 'paginate'): array
     {
         return $this->repository
             ->orderBy('name')
@@ -56,19 +61,14 @@ class ProductService extends CrudService implements ProductServiceContract
     }
 
     /**
-     * Paginate by link status criteria.
-     *
-     * @param int|null $limit
-     * @param array $columns
-     * @param string $method
-     *
-     * @return mixed
+     * @param  bool  $criteria
+     * @return LengthAwarePaginator|Collection|mixed
      */
-    public function paginateByCriteria($criteria = false)
+    public function paginateByCriteria($criteria = false): array
     {
         $this->repository->resetCriteria();
 
-        if ($criteria){
+        if ($criteria) {
             return $this->repository->findByName($criteria)->orderBy('name')
                 ->paginate(null);
         }
@@ -79,26 +79,22 @@ class ProductService extends CrudService implements ProductServiceContract
 
     /**
      * @param  string  $id
-     * @return mixed
-     * @throws \Throwable
+     * @return bool
+     * @throws Throwable
      */
-    public function findById(string $id)
+    public function deleteById(string $id): bool
     {
-        $Product = parent::findById($id);
-        throw_if(!$Product, new ProductNotFoundException());
-        return $Product;
+        return $this->findById($id)->delete();
     }
 
     /**
-     * @param string $id
-     * @return bool
-     * @throws \Throwable
+     * @param  string  $id
+     * @return Product
+     * @throws Throwable
      */
-    public function deleteById(string $id):bool
+    public function findById(string $id): Product
     {
-        $Product = $this->findById($id,true);
-
-        return $Product->delete();
+        return throw_unless(parent::findById($id), new ProductNotFoundException());
     }
 
     /**

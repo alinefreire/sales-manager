@@ -102,7 +102,7 @@ class CustomerTest extends TestCase
     {
         $customer = factory(Customer::class)->create();
 
-        $this->put("/v1/customers/{$customer->_id}",["name" => "Update Teste"]);
+        $this->put("/v1/customers/{$customer->_id}", ["name" => "Update Teste"]);
 
         $this->seeInDatabase('customers', ['name' => "Update Teste"]);
         $this->assertResponseStatus(Response::HTTP_NO_CONTENT);

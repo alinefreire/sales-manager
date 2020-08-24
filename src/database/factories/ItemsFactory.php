@@ -1,10 +1,11 @@
 <?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+/** @var Factory $factory */
 
-use App\Models\Customer;
-use App\Models\Address;
+use App\Models\Items;
+use App\Models\Product;
 use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factory;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,14 +18,12 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Customer::class, function (Faker $faker) {
-    $address = factory(Address::class)->make();
+$factory->define(Items::class, function (Faker $faker) {
+    $prod = factory(Product::class)->create();
 
     return [
-        'name' => $faker->name,
-        'email' => $faker->email,
-        'phone_number' => $faker->phoneNumber,
-        'observation' => $faker->text,
-        'address'   => $address->toArray()
+        'price' => $faker->randomFloat(1),
+        'quantity' => $faker->randomNumber(2),
+        'product' => ['id' => $prod->id, 'description' => $prod->description],
     ];
 });
