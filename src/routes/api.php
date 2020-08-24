@@ -22,15 +22,21 @@ $router->get('/health', function () use ($router) {
 
 $router->group(["prefix" => "v1"], function () use ($router) {
 
-    $router->get('/customers',                'CustomerController@index');
-    $router->get('/customers/{id}',           'CustomerController@show');
-    $router->post('/customers',               'CustomerController@store');
-    $router->put('/customers/{id}',           'CustomerController@update');
-    $router->delete('/customers/{id}',        'CustomerController@remove');
+    $router->get('/customers', 'CustomerController@index');
+    $router->get('/customers/{id}', 'CustomerController@show');
+    $router->post('/customers', 'CustomerController@store');
+    $router->put('/customers/{id}', 'CustomerController@update');
+    $router->delete('/customers/{id}', 'CustomerController@remove');
 
-    $router->get('/products',                'ProductController@index');
-    $router->get('/products/{id}',           'ProductController@show');
-    $router->post('/products',               'ProductController@store');
-    $router->put('/products/{id}',           'ProductController@update');
-    $router->delete('/products/{id}',        'ProductController@remove');
+    $router->get('/products', 'ProductController@index');
+    $router->get('/products/{id}', 'ProductController@show');
+    $router->post('/products', 'ProductController@store');
+    $router->put('/products/{id}', 'ProductController@update');
+    $router->delete('/products/{id}', 'ProductController@remove');
+
+    $router->get('/orders', 'SalesOrderController@index');
+    $router->get('/orders/{id}', 'SalesOrderController@show');
+    $router->post('/orders', 'SalesOrderController@store');
+    $router->put('/orders/{id}', 'SalesOrderController@update');
+    $router->delete('/orders/{id}', 'SalesOrderController@remove');
 });
